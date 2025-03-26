@@ -1,20 +1,20 @@
-# akkio-color-swatch
+# Akkio Frontend Technical Assessment
 
-This template should help get you started developing with Vue 3 in Vite.
+## Requirements
 
-## Recommended IDE Setup
+- Use [The Color API](https://www.thecolorapi.com/) to build a grid of HSL color swatches that take in user inputs for `saturation` and `lightness`.
+- Display the visualized color, color name, and RGB values
+- Design for performance and UX
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Summary
 
-## Type Support for `.vue` Imports in TS
+This was my first project using Vue, and honestly I had a lot of fun exploring the framework. I used the [Vue Quickstart](https://vuejs.org/guide/quick-start) guide to spin up the application, and spent the first few hours getting my bearings and the basic functionality down (see the ugly but mostly working [initial commit](https://github.com/adlondon/color-swatch/commit/fd50cdfda8f55ff44b53f6c74156898631d68b11)).
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+At first, I thought that referencing `exact_match_name` would be the best way to filter out duplicate color names. However I soon realized that not all of the queries produced a response that contained that value, so I refactored it to check for duplicates in state. I also added a caching layer that lives in memory and prevents unnecessary requests. The initial queries make all 360 requests, but repeated requests are pulled from the cache. I also toyed around with the idea of debouncing the `@change` callback from the `input`, but found that the UX was not ideal so I ended up adding a submit button.
 
-## Customize configuration
+Error handling is pretty light, with simple checks for character count in the inputs and a basic message to the user. Would have liked to focus more time on that and tightening up the input validation and UX for entering saturation and lightness values in general.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Setup
 
 ```sh
 npm install
@@ -24,16 +24,4 @@ npm install
 
 ```sh
 npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
